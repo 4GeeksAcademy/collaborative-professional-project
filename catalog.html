@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo | Maison Lumière</title>
+    <meta
+      name="description"
+      content="Explora el catálogo de Maison Lumière con filtros por categoría y talla para descubrir piezas contemporáneas con esencia parisina."
+    />
+    <meta
+      name="keywords"
+      content="catálogo de ropa, moda francesa, Maison Lumière, calzado, camisas, pantalones, accesorios"
+    />
+    <meta name="author" content="Maison Lumière" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0b0f1a" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .filter-input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #cat-calzado:checked ~ .catalog-content .product-card:not(.cat-calzado),
+      #cat-camisas:checked ~ .catalog-content .product-card:not(.cat-camisas),
+      #cat-pantalones:checked ~ .catalog-content .product-card:not(.cat-pantalones),
+      #cat-accesorios:checked ~ .catalog-content .product-card:not(.cat-accesorios),
+      #size-xs:checked ~ .catalog-content .product-card:not(.size-xs),
+      #size-s:checked ~ .catalog-content .product-card:not(.size-s),
+      #size-m:checked ~ .catalog-content .product-card:not(.size-m),
+      #size-l:checked ~ .catalog-content .product-card:not(.size-l),
+      #size-xl:checked ~ .catalog-content .product-card:not(.size-xl),
+      #size-unica:checked ~ .catalog-content .product-card:not(.size-unica) {
+        display: none;
+      }
+
+      #cat-all:checked ~ .catalog-content label[for="cat-all"],
+      #cat-calzado:checked ~ .catalog-content label[for="cat-calzado"],
+      #cat-camisas:checked ~ .catalog-content label[for="cat-camisas"],
+      #cat-pantalones:checked ~ .catalog-content label[for="cat-pantalones"],
+      #cat-accesorios:checked ~ .catalog-content label[for="cat-accesorios"],
+      #size-all:checked ~ .catalog-content label[for="size-all"],
+      #size-xs:checked ~ .catalog-content label[for="size-xs"],
+      #size-s:checked ~ .catalog-content label[for="size-s"],
+      #size-m:checked ~ .catalog-content label[for="size-m"],
+      #size-l:checked ~ .catalog-content label[for="size-l"],
+      #size-xl:checked ~ .catalog-content label[for="size-xl"],
+      #size-unica:checked ~ .catalog-content label[for="size-unica"] {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #0f172a;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-100 text-slate-900 antialiased">
+    <div class="min-h-screen bg-[radial-gradient(circle_at_top_right,_#fbe7d0_0,_#f8f5ef_35%,_#f1f5f9_100%)]">
+      <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/90 backdrop-blur">
+        <div class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between gap-4">
+            <a href="index.html" class="inline-flex items-center gap-3" aria-label="Ir al inicio de Maison Lumière">
+              <span class="grid h-10 w-10 place-content-center rounded-full bg-slate-900 text-lg font-bold text-white">ML</span>
+              <div>
+                <p class="text-sm uppercase tracking-[0.35em] text-slate-500">Paris</p>
+                <p class="text-lg font-semibold leading-tight">Maison Lumière</p>
+              </div>
+            </a>
+
+            <details class="relative">
+              <summary class="cursor-pointer list-none rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-500 hover:text-slate-900">
+                Mi cuenta
+              </summary>
+              <nav
+                aria-label="Menú de usuario"
+                class="absolute right-0 mt-2 w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"
+              >
+                <a href="#" class="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100">Iniciar sesión</a>
+                <a href="#" class="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100">Pedidos</a>
+                <a href="#" class="block rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-100">Favoritos</a>
+              </nav>
+            </details>
+          </div>
+
+          <nav aria-label="Navegación principal" class="overflow-x-auto">
+            <ul class="flex min-w-max items-center gap-2 pb-1 text-sm font-medium text-slate-700">
+              <li><a href="index.html" class="rounded-full px-4 py-2 hover:bg-slate-200">Home</a></li>
+              <li><a href="catalog.html" class="rounded-full bg-slate-900 px-4 py-2 text-white">Catálogo</a></li>
+              <li><a href="#" class="rounded-full px-4 py-2 hover:bg-slate-200">Vista de producto</a></li>
+              <li><a href="#" class="rounded-full px-4 py-2 hover:bg-slate-200">Carrito</a></li>
+              <li><a href="#" class="rounded-full px-4 py-2 hover:bg-slate-200">Formulario de pago</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main class="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <input class="filter-input" type="radio" name="categoria" id="cat-all" checked />
+        <input class="filter-input" type="radio" name="categoria" id="cat-calzado" />
+        <input class="filter-input" type="radio" name="categoria" id="cat-camisas" />
+        <input class="filter-input" type="radio" name="categoria" id="cat-pantalones" />
+        <input class="filter-input" type="radio" name="categoria" id="cat-accesorios" />
+
+        <input class="filter-input" type="radio" name="talla" id="size-all" checked />
+        <input class="filter-input" type="radio" name="talla" id="size-xs" />
+        <input class="filter-input" type="radio" name="talla" id="size-s" />
+        <input class="filter-input" type="radio" name="talla" id="size-m" />
+        <input class="filter-input" type="radio" name="talla" id="size-l" />
+        <input class="filter-input" type="radio" name="talla" id="size-xl" />
+        <input class="filter-input" type="radio" name="talla" id="size-unica" />
+
+        <div class="catalog-content">
+        <section class="mb-8" aria-labelledby="catalogo-titulo">
+          <h1 id="catalogo-titulo" class="text-3xl font-semibold text-slate-900 sm:text-4xl">Catálogo Maison Lumière</h1>
+          <p class="mt-3 max-w-3xl text-slate-700">
+            Encuentra piezas para cada temporada con un estilo francés contemporáneo. Usa los filtros para explorar por categoría y talla.
+          </p>
+        </section>
+
+        <section aria-labelledby="filtros-catalogo" class="mb-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <h2 id="filtros-catalogo" class="text-lg font-semibold text-slate-900">Filtros</h2>
+
+          <div class="mt-4 grid gap-5 lg:grid-cols-2" aria-label="Filtros de catálogo">
+            <fieldset>
+              <legend class="mb-2 block text-sm font-medium text-slate-700">Categoría</legend>
+              <div class="flex flex-wrap gap-2">
+                <label for="cat-all" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Todas</label>
+                <label for="cat-calzado" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Calzado</label>
+                <label for="cat-camisas" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Camisas</label>
+                <label for="cat-pantalones" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Pantalones</label>
+                <label for="cat-accesorios" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Accesorios</label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="mb-2 block text-sm font-medium text-slate-700">Talla</legend>
+              <div class="flex flex-wrap gap-2">
+                <label for="size-all" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Todas</label>
+                <label for="size-xs" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">XS</label>
+                <label for="size-s" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">S</label>
+                <label for="size-m" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">M</label>
+                <label for="size-l" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">L</label>
+                <label for="size-xl" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">XL</label>
+                <label for="size-unica" class="cursor-pointer rounded-full border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 transition hover:border-slate-500">Talla única</label>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section aria-labelledby="productos-catalogo" class="pb-4">
+          <div class="mb-5 flex items-center justify-between">
+            <h2 id="productos-catalogo" class="text-2xl font-semibold text-slate-900">Productos destacados</h2>
+            <p class="text-sm text-slate-600">20 productos visibles</p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <article class="product-card cat-calzado size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80" alt="Sneakers blancas minimalistas" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Sneakers Étoile</h3>
+                <p class="text-sm text-slate-600">Calzado · Blanco</p>
+                <p class="text-sm text-slate-600">Tallas: 38-43</p>
+                <p class="text-sm font-semibold">€139</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-calzado size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=900&q=80" alt="Botines negros de cuero" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Botines Louvre</h3>
+                <p class="text-sm text-slate-600">Calzado · Negro</p>
+                <p class="text-sm text-slate-600">Tallas: 36-41</p>
+                <p class="text-sm font-semibold">€169</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-s size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80" alt="Camisa blanca de lino" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Camisa Rivière</h3>
+                <p class="text-sm text-slate-600">Camisas · Blanco perla</p>
+                <p class="text-sm text-slate-600">Tallas: S-XL</p>
+                <p class="text-sm font-semibold">€89</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1475180098004-ca77a66827be?auto=format&fit=crop&w=900&q=80" alt="Camisa rayada de manga larga" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Camisa Opéra</h3>
+                <p class="text-sm text-slate-600">Camisas · Rayas</p>
+                <p class="text-sm text-slate-600">Tallas: M-XL</p>
+                <p class="text-sm font-semibold">€79</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-pantalones size-s size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=900&q=80" alt="Pantalón beige recto" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Pantalón Marais</h3>
+                <p class="text-sm text-slate-600">Pantalones · Arena</p>
+                <p class="text-sm text-slate-600">Tallas: 38-46</p>
+                <p class="text-sm font-semibold">€119</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-pantalones size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=900&q=80" alt="Pantalón negro de vestir" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Pantalón Concorde</h3>
+                <p class="text-sm text-slate-600">Pantalones · Negro</p>
+                <p class="text-sm text-slate-600">Tallas: 36-44</p>
+                <p class="text-sm font-semibold">€129</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-accesorios size-unica overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1527010154944-f2241763d806?auto=format&fit=crop&w=900&q=80" alt="Bolso negro de piel" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Bolso Saint-Honoré</h3>
+                <p class="text-sm text-slate-600">Accesorios · Negro</p>
+                <p class="text-sm text-slate-600">Talla única</p>
+                <p class="text-sm font-semibold">€159</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-accesorios size-unica overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=900&q=80" alt="Bolso beige de mano" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Bolso Madeleine</h3>
+                <p class="text-sm text-slate-600">Accesorios · Beige</p>
+                <p class="text-sm text-slate-600">Talla única</p>
+                <p class="text-sm font-semibold">€149</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-s size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=900&q=80" alt="Jersey de punto gris" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Jersey Bastille</h3>
+                <p class="text-sm text-slate-600">Camisas · Gris humo</p>
+                <p class="text-sm text-slate-600">Tallas: S-XL</p>
+                <p class="text-sm font-semibold">€99</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-calzado size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=900&q=80" alt="Zapatillas urbanas negras" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Sneakers Bastion</h3>
+                <p class="text-sm text-slate-600">Calzado · Negro carbón</p>
+                <p class="text-sm text-slate-600">Tallas: 39-44</p>
+                <p class="text-sm font-semibold">€145</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-pantalones size-s size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=80" alt="Pantalón azul oscuro slim" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Pantalón Monceau</h3>
+                <p class="text-sm text-slate-600">Pantalones · Azul noche</p>
+                <p class="text-sm text-slate-600">Tallas: 38-48</p>
+                <p class="text-sm font-semibold">€124</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-s size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80" alt="Camisa azul clara casual" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Camisa Levallois</h3>
+                <p class="text-sm text-slate-600">Camisas · Azul claro</p>
+                <p class="text-sm text-slate-600">Tallas: S-XL</p>
+                <p class="text-sm font-semibold">€84</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=900&q=80" alt="Blazer grafito de corte slim" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Blazer Montmartre</h3>
+                <p class="text-sm text-slate-600">Camisas · Grafito</p>
+                <p class="text-sm text-slate-600">Tallas: M-XL</p>
+                <p class="text-sm font-semibold">€179</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-accesorios size-unica overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80" alt="Gafas de sol de diseño cuadrado" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Gafas Marceau</h3>
+                <p class="text-sm text-slate-600">Accesorios · Negro</p>
+                <p class="text-sm text-slate-600">Talla única</p>
+                <p class="text-sm font-semibold">€69</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=80" alt="Chaqueta de cuero marrón" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Chaqueta Pigalle</h3>
+                <p class="text-sm text-slate-600">Camisas · Marrón</p>
+                <p class="text-sm text-slate-600">Tallas: S-L</p>
+                <p class="text-sm font-semibold">€229</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-calzado size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80" alt="Tenis beige casuales" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Tenis Louvre Light</h3>
+                <p class="text-sm text-slate-600">Calzado · Beige claro</p>
+                <p class="text-sm text-slate-600">Tallas: 37-42</p>
+                <p class="text-sm font-semibold">€132</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-accesorios size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Cinturón de cuero en color coñac" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Cinturón Lafayette</h3>
+                <p class="text-sm text-slate-600">Accesorios · Coñac</p>
+                <p class="text-sm text-slate-600">Tallas: S-L</p>
+                <p class="text-sm font-semibold">€59</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-camisas size-xs size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=900&q=80" alt="Vestido midi azul noche" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Vestido Seine</h3>
+                <p class="text-sm text-slate-600">Camisas · Azul noche</p>
+                <p class="text-sm text-slate-600">Tallas: XS-L</p>
+                <p class="text-sm font-semibold">€199</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-pantalones size-s size-m size-l overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=80" alt="Pantalón amplio color crema" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Pantalón Belleville</h3>
+                <p class="text-sm text-slate-600">Pantalones · Crema</p>
+                <p class="text-sm text-slate-600">Tallas: 36-44</p>
+                <p class="text-sm font-semibold">€116</p>
+              </div>
+            </article>
+
+            <article class="product-card cat-calzado size-m size-l size-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <img src="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?auto=format&fit=crop&w=900&q=80" alt="Mocasines marrón clásico" class="h-64 w-full object-cover" loading="lazy" />
+              <div class="space-y-2 p-4">
+                <h3 class="text-base font-semibold">Mocasines Rivoli</h3>
+                <p class="text-sm text-slate-600">Calzado · Marrón oscuro</p>
+                <p class="text-sm text-slate-600">Tallas: 39-45</p>
+                <p class="text-sm font-semibold">€154</p>
+              </div>
+            </article>
+          </div>
+        </section>
+        </div>
+      </main>
+
+      <footer class="mt-12 border-t border-slate-200 bg-white/90">
+        <div class="mx-auto grid w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+          <section>
+            <h2 class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Maison Lumière</h2>
+            <p class="text-sm text-slate-600">
+              Marca de ropa con sede en Francia. Diseñamos piezas que equilibran elegancia clásica y visión contemporánea.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Categorías</h2>
+            <nav aria-label="Categorías">
+              <ul class="space-y-2 text-sm text-slate-700">
+                <li><a href="#" class="hover:text-slate-900">Calzado</a></li>
+                <li><a href="#" class="hover:text-slate-900">Camisas</a></li>
+                <li><a href="#" class="hover:text-slate-900">Pantalones</a></li>
+                <li><a href="#" class="hover:text-slate-900">Accesorios</a></li>
+              </ul>
+            </nav>
+          </section>
+
+          <section>
+            <h2 class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Legal</h2>
+            <nav aria-label="Legal">
+              <ul class="space-y-2 text-sm text-slate-700">
+                <li><a href="#" class="hover:text-slate-900">Términos y condiciones</a></li>
+                <li><a href="#" class="hover:text-slate-900">Política de privacidad</a></li>
+                <li><a href="#" class="hover:text-slate-900">Sobre la marca</a></li>
+              </ul>
+            </nav>
+          </section>
+
+          <section>
+            <h2 class="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">Contacto</h2>
+            <address class="not-italic text-sm text-slate-700">
+              <p>24 Rue de la Mode, Paris, Francia</p>
+              <p class="mt-2"><a href="mailto:contacto@maisonlumiere.fr" class="hover:text-slate-900">contacto@maisonlumiere.fr</a></p>
+              <p class="mt-2"><a href="tel:+33144000000" class="hover:text-slate-900">+33 1 44 00 00 00</a></p>
+            </address>
+          </section>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
