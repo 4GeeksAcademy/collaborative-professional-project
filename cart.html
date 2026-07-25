@@ -17,6 +17,68 @@
     <meta name="theme-color" content="#0b0f1a" />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .cart-mobile-list {
+        display: none;
+      }
+
+      .nav-mobile {
+        display: none;
+      }
+
+      @media (max-width: 750px) {
+        .cart-main {
+          max-width: 100%;
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .cart-grid {
+          gap: 0;
+        }
+
+        .cart-panel {
+          border-left: 0;
+          border-right: 0;
+          border-radius: 0;
+        }
+
+        .cart-table-desktop {
+          display: none;
+        }
+
+        .cart-mobile-list {
+          display: grid;
+          gap: 0.75rem;
+        }
+
+        .nav-desktop {
+          display: none;
+        }
+
+        .nav-mobile {
+          display: block;
+        }
+      }
+
+      @media (min-width: 751px) {
+        .cart-table-desktop {
+          display: block;
+        }
+
+        .cart-mobile-list {
+          display: none;
+        }
+
+        .nav-desktop {
+          display: block;
+        }
+
+        .nav-mobile {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body class="bg-slate-100 text-slate-900 antialiased">
     <div class="min-h-screen bg-[radial-gradient(circle_at_top_right,_#fbe7d0_0,_#f8f5ef_35%,_#f1f5f9_100%)]">
@@ -46,7 +108,7 @@
             </details>
           </div>
 
-          <nav aria-label="Navegacion principal" class="overflow-x-auto">
+          <nav aria-label="Navegacion principal" class="nav-desktop overflow-x-auto">
             <ul class="flex min-w-max items-center gap-2 pb-1 text-sm font-medium text-slate-700">
               <li><a href="index.html" class="rounded-full px-4 py-2 hover:bg-slate-200">Home</a></li>
               <li><a href="catalog.html" class="rounded-full px-4 py-2 hover:bg-slate-200">Catalogo</a></li>
@@ -55,25 +117,41 @@
               <li><a href="#" class="rounded-full px-4 py-2 hover:bg-slate-200">Formulario de pago</a></li>
             </ul>
           </nav>
+
+          <details class="nav-mobile rounded-2xl border border-slate-200 bg-white p-2" role="group">
+            <summary class="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-100">
+              Menu
+              <span class="text-xs font-medium text-slate-500">Navegacion</span>
+            </summary>
+            <nav aria-label="Navegacion principal movil" class="mt-2">
+              <ul class="grid gap-1 text-sm font-medium text-slate-700">
+                <li><a href="index.html" class="block rounded-lg px-3 py-2 hover:bg-slate-100">Home</a></li>
+                <li><a href="catalog.html" class="block rounded-lg px-3 py-2 hover:bg-slate-100">Catalogo</a></li>
+                <li><a href="product-view.html" class="block rounded-lg px-3 py-2 hover:bg-slate-100">Vista de producto</a></li>
+                <li><a href="cart.html" aria-current="page" class="block rounded-lg bg-slate-900 px-3 py-2 text-white">Carrito</a></li>
+                <li><a href="#" class="block rounded-lg px-3 py-2 hover:bg-slate-100">Formulario de pago</a></li>
+              </ul>
+            </nav>
+          </details>
         </div>
       </header>
 
-      <main class="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <section class="mb-8" aria-labelledby="cart-title">
+      <main class="cart-main mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section class="mb-8 px-4 sm:px-0" aria-labelledby="cart-title">
           <h1 id="cart-title" class="text-3xl font-semibold text-slate-900 sm:text-4xl">Shopping Cart</h1>
           <p class="mt-3 max-w-3xl text-slate-700">
             Revisa tus productos antes de finalizar la compra. Esta pagina es una maqueta visual con articulos de ejemplo.
           </p>
         </section>
 
-        <div class="grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(280px,_1fr)] lg:items-start">
-          <section aria-labelledby="cart-items-title" class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+        <div class="cart-grid grid gap-6 lg:grid-cols-[minmax(0,_2fr)_minmax(280px,_1fr)] lg:items-start">
+          <section aria-labelledby="cart-items-title" class="cart-panel rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
             <div class="mb-4 flex items-center justify-between">
               <h2 id="cart-items-title" class="text-xl font-semibold text-slate-900">Productos en tu carrito</h2>
               <p class="text-sm text-slate-600">3 productos</p>
             </div>
 
-            <div class="overflow-x-auto">
+            <div class="cart-table-desktop overflow-x-auto">
               <table class="w-full min-w-[680px] border-collapse text-left" aria-describedby="cart-title">
                 <thead>
                   <tr class="border-b border-slate-200 text-xs uppercase tracking-[0.12em] text-slate-500">
@@ -152,9 +230,110 @@
                 </tbody>
               </table>
             </div>
+
+            <ul class="cart-mobile-list" aria-label="Listado de productos en carrito para movil">
+              <li>
+                <article class="rounded-xl border border-slate-200 bg-slate-50/70 p-3">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=280&q=80"
+                      alt="Camisa Riviere en color blanco perla"
+                      class="h-16 w-16 rounded-lg object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <p class="font-semibold text-slate-900">Camisa Riviere</p>
+                      <p class="text-sm text-slate-600">Camisas · Blanco perla</p>
+                    </div>
+                  </div>
+                  <dl class="mt-3 space-y-2 text-sm">
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Precio unitario</dt>
+                      <dd class="text-slate-900">€89.00</dd>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Cantidad</dt>
+                      <dd>
+                        <span class="inline-flex min-w-10 justify-center rounded-full border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-700">2</span>
+                      </dd>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-200 pt-2">
+                      <dt class="font-medium text-slate-700">Total</dt>
+                      <dd class="font-semibold text-slate-900">€178.00</dd>
+                    </div>
+                  </dl>
+                </article>
+              </li>
+
+              <li>
+                <article class="rounded-xl border border-slate-200 bg-slate-50/70 p-3">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=280&q=80"
+                      alt="Pantalon Marais en tono arena"
+                      class="h-16 w-16 rounded-lg object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <p class="font-semibold text-slate-900">Pantalon Marais</p>
+                      <p class="text-sm text-slate-600">Pantalones · Arena</p>
+                    </div>
+                  </div>
+                  <dl class="mt-3 space-y-2 text-sm">
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Precio unitario</dt>
+                      <dd class="text-slate-900">€119.00</dd>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Cantidad</dt>
+                      <dd>
+                        <span class="inline-flex min-w-10 justify-center rounded-full border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-700">1</span>
+                      </dd>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-200 pt-2">
+                      <dt class="font-medium text-slate-700">Total</dt>
+                      <dd class="font-semibold text-slate-900">€119.00</dd>
+                    </div>
+                  </dl>
+                </article>
+              </li>
+
+              <li>
+                <article class="rounded-xl border border-slate-200 bg-slate-50/70 p-3">
+                  <div class="flex items-center gap-3">
+                    <img
+                      src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=280&q=80"
+                      alt="Blazer Montmartre en color grafito"
+                      class="h-16 w-16 rounded-lg object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <p class="font-semibold text-slate-900">Blazer Montmartre</p>
+                      <p class="text-sm text-slate-600">Camisas · Grafito</p>
+                    </div>
+                  </div>
+                  <dl class="mt-3 space-y-2 text-sm">
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Precio unitario</dt>
+                      <dd class="text-slate-900">€179.00</dd>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <dt class="text-slate-600">Cantidad</dt>
+                      <dd>
+                        <span class="inline-flex min-w-10 justify-center rounded-full border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-700">1</span>
+                      </dd>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-200 pt-2">
+                      <dt class="font-medium text-slate-700">Total</dt>
+                      <dd class="font-semibold text-slate-900">€179.00</dd>
+                    </div>
+                  </dl>
+                </article>
+              </li>
+            </ul>
           </section>
 
-          <aside aria-labelledby="resumen-title" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 lg:sticky lg:top-28">
+          <aside aria-labelledby="resumen-title" class="cart-panel rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 lg:sticky lg:top-28">
             <h2 id="resumen-title" class="text-xl font-semibold text-slate-900">Totalizacion</h2>
 
             <dl class="mt-5 space-y-4 text-sm">
